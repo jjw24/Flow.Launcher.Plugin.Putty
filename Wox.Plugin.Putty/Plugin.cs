@@ -4,7 +4,8 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using System.Windows.Controls;
+	using System.Windows.Controls;
+	using Wox.Plugin;
 
     public class PuttyPlugin : IPlugin, ISettingProvider
     {
@@ -106,7 +107,10 @@
         {
             try
             {
-                var p = new Process { StartInfo = { FileName = "putty" } };
+								string PuttyPath = "putty.exe";
+								if(!string.IsNullOrEmpty(_settings.PuttyPath))
+									PuttyPath = _settings.PuttyPath;
+                var p = new Process { StartInfo = { FileName = PuttyPath } };
 
                 // Optionally pass the session identifier
                 if (!string.IsNullOrEmpty(sessionIdentifier))
@@ -126,7 +130,7 @@
             catch (Exception ex)
             {
                 // Report the exception to the user. No further actions required
-                _context.API.ShowMsg("Putty Error: " + sessionIdentifier, ex.Message, "");
+                _context.API.ShowMsg("Putty Error: " + sessionIdentifier + " (" + _settings.PuttyPath + ") ", ex.Message, "");
 
                 return false;
             }

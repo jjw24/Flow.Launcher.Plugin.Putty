@@ -12,6 +12,10 @@
         <StackPanel>
             <CheckBox x:Name="AddPuttyExeInResults" Content="Add putty exe in results" Margin="10" HorizontalAlignment="Left" />
             <CheckBox x:Name="AlwaysStartsSessionMaximized" Content="Always starts a putty session maximized" Margin="10" HorizontalAlignment="Left" />
-        </StackPanel>
+						<StackPanel Orientation="Horizontal">
+							<TextBox x:Name="PuttyFilePath" />
+							<Button x:Name="btnOpenFile" Click="btnOpenFile_Click">...</Button>
+						</StackPanel>
+					</StackPanel>
     </Border>
 </UserControl>
