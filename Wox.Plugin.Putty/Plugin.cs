@@ -65,9 +65,7 @@
                 if (_settings.AddPuttyExeToResults)
                 {
                     return results;
-                }
-                else
-                {
+				    } else {
                     querySearch = string.Empty;
                 }
             }
