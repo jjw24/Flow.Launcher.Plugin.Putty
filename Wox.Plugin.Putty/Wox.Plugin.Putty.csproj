@@ -51,7 +51,6 @@
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="Wox.Plugin, Version=1.2.0.442, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Wox.Plugin.1.2.0.442\lib\net35\Wox.Plugin.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
