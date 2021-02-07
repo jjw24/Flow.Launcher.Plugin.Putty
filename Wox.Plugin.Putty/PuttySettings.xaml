@@ -10,13 +10,13 @@
              d:DesignWidth="300">
     <Border BorderBrush="Gray" Margin="10" BorderThickness="1">
         <StackPanel>
-            <CheckBox x:Name="AddPuttyExeInResults" Content="Add putty exe in results" Margin="10" HorizontalAlignment="Left" />
-            <CheckBox x:Name="AlwaysStartsSessionMaximized" Content="Always starts a putty session maximized" Margin="10" HorizontalAlignment="Left" />
-			      <Label x:Name="Label" Content="Putty Executable Path :"/>
-			      <StackPanel Orientation="Horizontal">
-							<TextBox x:Name="PuttyFilePath" Width="264" Height="20" />
-				      <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="..." Height="20"/>
-			      </StackPanel>
+            <CheckBox x:Name="AddPuttyExeInResults" Content="Add putty exe in results" Margin="25 25 0 0" HorizontalAlignment="Left" />
+            <CheckBox x:Name="AlwaysStartsSessionMaximized" Content="Always starts a putty session maximized" Margin="25 10 0 0" HorizontalAlignment="Left" />
+            <Label x:Name="Label" Content="Putty Executable Path :" Margin="25 30 0 0"/>
+            <StackPanel Orientation="Horizontal" Margin="25 10 0 0">
+			    <TextBox x:Name="PuttyFilePath" Width="264" Height="20"/>
+			    <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="..." Margin="30 0 0 0" Height="30" Width="50"/>
+			</StackPanel>
 		</StackPanel>
     </Border>
 </UserControl>
