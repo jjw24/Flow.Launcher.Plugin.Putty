@@ -8,9 +8,8 @@
     <ProjectReference Include="..\Wox.Plugin.Putty\Wox.Plugin.Putty.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Flow.Launcher.Plugin" Version="1.4.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
   </ItemGroup>
 </Project>

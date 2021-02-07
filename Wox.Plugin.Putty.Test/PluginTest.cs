@@ -1,21 +1,22 @@
-﻿namespace Wox.Plugin.Putty.Test
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Flow.Launcher.Plugin;
+using NUnit.Framework;
 
+namespace Wox.Plugin.Putty.Test
+{
     [TestFixture]
     public class PluginTest
     {
         private const string Keyword = "pt";
-        private readonly Result _defaultPuttyResultItem = new Result("putty.exe", "logo.png", "Launch Clean Putty");
+        private readonly Result _defaultPuttyResultItem = new Result { Title = "putty.exe", IcoPath = "logo.png", SubTitle = "Launch Clean Putty" };
 
         [Test]
         public void Query_returns_only_Putty_as_result_with_empty_searchquery()
         {
             // Arrange
             var plugin = new PuttyPlugin();
-            var query = new Query(Keyword);
+            var query = new Query(Keyword, Keyword, new string[0]);
 
             var fakeSessions = new List<PuttySession>();
             plugin.PuttySessionService = new FakePuttySessionService { FakeResult = fakeSessions };
@@ -40,7 +41,7 @@
         {
             // Arrange
             var plugin = new PuttyPlugin();
-            var query = new Query(Keyword + " asdf");
+            var query = new Query(Keyword + " asdf", "asdf", new string[0]);
 
             var fakeSessions = new List<PuttySession>
             {
@@ -70,7 +71,7 @@
         {
             // Arrange
             var plugin = new PuttyPlugin();
-            var query = new Query(Keyword + " foo");
+            var query = new Query(Keyword + " foo", "foo", new string[0]);
 
             var fakeSessions = new List<PuttySession>
             {
@@ -83,8 +84,8 @@
             var expectedResult = new List<Result>
             {
                 _defaultPuttyResultItem,
-                new Result("foo@foobar.com", "icon.png", "ssh://foo@foobar.com"),
-                new Result("bar@foobar.com", "icon.png", "ssh://bar@foobar.com"),
+                new Result{ Title = "foo@foobar.com", IcoPath = "icon.png", SubTitle = "ssh://foo@foobar.com" },
+                new Result{ Title = "bar@foobar.com", IcoPath = "icon.png", SubTitle = "ssh://bar@foobar.com" },
             };
 
             // Act
