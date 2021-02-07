@@ -1,4 +1,4 @@
-﻿namespace Wox.Plugin.Putty
+﻿namespace Flow.Launcher.Plugin.Putty
 {
     using Microsoft.Win32;
     using System;

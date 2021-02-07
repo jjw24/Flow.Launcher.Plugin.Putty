@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Wox.Plugin.Putty
+namespace Flow.Launcher.Plugin.Putty
 {
 	/// <summary>
 	/// Interaction logic for PuttySettings.xaml

@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Wox.Plugin.Putty")]
+[assembly: AssemblyTitle("Flow.Launcher.Plugin.Putty")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Konstantin Zaitcev")]
-[assembly: AssemblyProduct("Wox.Plugin.Putty")]
+[assembly: AssemblyProduct("Flow.Launcher.Plugin.Putty")]
 [assembly: AssemblyCopyright("Copyright 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

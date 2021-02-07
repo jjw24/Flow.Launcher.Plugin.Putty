@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Wox.Plugin.Putty
+namespace Flow.Launcher.Plugin.Putty
 {
     public interface IPuttySessionService
     {
