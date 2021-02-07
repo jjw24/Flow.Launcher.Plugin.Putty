@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wox.Plugin.Putty", "Wox.Plugin.Putty\Wox.Plugin.Putty.csproj", "{2E3E0C47-F4E2-443C-8BB3-BF59E6E4C9DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flow.Launcher.Plugin.Putty", "Flow.Launcher.Plugin.Putty\Flow.Launcher.Plugin.Putty.csproj", "{2E3E0C47-F4E2-443C-8BB3-BF59E6E4C9DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wox.Plugin.Putty.Test", "Wox.Plugin.Putty.Test\Wox.Plugin.Putty.Test.csproj", "{614D655F-AF60-4B0A-8D64-A6E00E4F3F7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow.Launcher.Putty.Test", "Flow.Launcher.Plugin.Putty.Test\Flow.Launcher.Plugin.Putty.Test.csproj", "{614D655F-AF60-4B0A-8D64-A6E00E4F3F7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

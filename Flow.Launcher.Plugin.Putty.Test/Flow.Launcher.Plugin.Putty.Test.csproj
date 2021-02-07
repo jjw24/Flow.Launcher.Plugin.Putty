@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Wox.Plugin.Putty\Wox.Plugin.Putty.csproj" />
+    <ProjectReference Include="..\Flow.Launcher.Plugin.Putty\Flow.Launcher.Plugin.Putty.csproj" />
   </ItemGroup>
 
 </Project>

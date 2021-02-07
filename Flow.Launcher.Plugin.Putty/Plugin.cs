@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
 
-namespace Wox.Plugin.Putty
+namespace Flow.Launcher.Plugin.Putty
 {
     public class PuttyPlugin : IPlugin, ISettingProvider
     {

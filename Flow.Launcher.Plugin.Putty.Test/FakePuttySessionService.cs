@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Wox.Plugin.Putty.Test
+namespace Flow.Launcher.Plugin.Putty.Test
 {
     public class FakePuttySessionService : IPuttySessionService
     {

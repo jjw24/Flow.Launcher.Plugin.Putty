@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Wox.Plugin.Putty.Test
+namespace Flow.Launcher.Plugin.Putty.Test
 {
     [TestFixture]
     public class PuttySessionTest

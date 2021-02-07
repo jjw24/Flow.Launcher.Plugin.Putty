@@ -6,7 +6,7 @@
     "Author":"Konstantin Zaitcev, Kai Eichinger (@cH40zLord)",
     "Version":"2.0.0",
     "Language": "csharp",
-    "Website": "https://github.com/jjw24/wox.plugin.putty",
-    "ExecuteFileName": "Wox.Plugin.Putty.dll",
+    "Website": "https://github.com/jjw24/Flow.Launcher.Plugin.Putty",
+    "ExecuteFileName": "Flow.Launcher.Plugin.Putty.dll",
     "IcoPath":"icon.png"
 }
