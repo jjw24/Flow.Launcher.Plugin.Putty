@@ -15,7 +15,7 @@ namespace Wox.Plugin.Putty
             {
                 AddPuttyExeToResults = true,
                 AlwaysStartsSessionMaximized = false,
-								PuttyPath = "",
+				PuttyPath = "",
             };
 
             try
@@ -38,13 +38,13 @@ namespace Wox.Plugin.Putty
                             settings.AlwaysStartsSessionMaximized = true;
                         }
 
-												// Read with default to ""
-												value = woxPuttySubKey.GetValue("PuttyPath", "", RegistryValueOptions.None);
-												if(value is string) {
-													settings.PuttyPath = (string)value;
-												}
-										}
-								}
+						// Read with default to ""
+						value = woxPuttySubKey.GetValue("PuttyPath", "", RegistryValueOptions.None);
+						if(value is string) {
+							settings.PuttyPath = (string)value;
+						}
+					}
+				}
             }
             catch (Exception)
             {
@@ -66,7 +66,7 @@ namespace Wox.Plugin.Putty
                         woxPuttySubKey.SetValue("AddPuttyExeToResults", settings.AddPuttyExeToResults ? "1" : "0", RegistryValueKind.String);
                         woxPuttySubKey.SetValue("AlwaysStartsSessionMaximized", settings.AlwaysStartsSessionMaximized ? "1" : "0", RegistryValueKind.String);
 												woxPuttySubKey.SetValue("PuttyPath", settings.PuttyPath, RegistryValueKind.String);
-										}
+					}
                 }
             }
             catch (Exception)

@@ -1,12 +1,12 @@
-﻿namespace Wox.Plugin.Putty
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-	using System.Windows.Controls;
-	using Wox.Plugin;
+﻿using Flow.Launcher.Plugin;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Controls;
 
+namespace Wox.Plugin.Putty
+{
     public class PuttyPlugin : IPlugin, ISettingProvider
     {
         /// <summary>
@@ -58,14 +58,16 @@
             {
                 results.Add(CreateResult());
             }
-            var querySearch = query.ActionParameters.FirstOrDefault();
+            var querySearch = query.Search;
 
             if (string.IsNullOrEmpty(querySearch))
             {
                 if (_settings.AddPuttyExeToResults)
                 {
                     return results;
-				    } else {
+                } 
+                else 
+                {
                     querySearch = string.Empty;
                 }
             }

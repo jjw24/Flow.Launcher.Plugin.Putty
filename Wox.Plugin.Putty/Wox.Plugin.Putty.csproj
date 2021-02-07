@@ -12,25 +12,12 @@
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>Output\Debug\Wox.Plugin.Putty</OutputPath>
+    <OutputPath>C:\Workbench\Git\Flow.Launcher\Output\Debug\Plugins\Wox.Plugin.Putty</OutputPath>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>Output\Release\Wox.Plugin.Putty</OutputPath>
+    <OutputPath>..\Output\Release\Wox.Plugin.Putty</OutputPath>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Update="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xaml" />
-    <Reference Update="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="icon.png">
@@ -42,5 +29,9 @@
     <None Include="plugin.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Flow.Launcher.Plugin" Version="1.4.0" />
   </ItemGroup>
 </Project>
