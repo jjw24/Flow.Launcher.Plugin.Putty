@@ -6,7 +6,7 @@ namespace Wox.Plugin.Putty
     {
         public bool AddPuttyExeToResults { get; set; }
         public bool AlwaysStartsSessionMaximized { get; set; }
-				public string PuttyPath { get; set; }
+		public string PuttyPath { get; set; }
 
         public Action<Settings> OnSettingsChanged { get; set; }
     }

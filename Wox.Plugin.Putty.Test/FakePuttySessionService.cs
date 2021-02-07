@@ -1,7 +1,7 @@
-﻿namespace Wox.Plugin.Putty.Test
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Wox.Plugin.Putty.Test
+{
     public class FakePuttySessionService : IPuttySessionService
     {
         public IEnumerable<PuttySession> FakeResult { get; set; }

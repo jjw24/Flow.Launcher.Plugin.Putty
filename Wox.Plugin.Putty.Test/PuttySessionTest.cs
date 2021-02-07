@@ -1,7 +1,7 @@
-﻿namespace Wox.Plugin.Putty.Test
-{
-    using NUnit.Framework;
+﻿using NUnit.Framework;
 
+namespace Wox.Plugin.Putty.Test
+{
     [TestFixture]
     public class PuttySessionTest
     {
