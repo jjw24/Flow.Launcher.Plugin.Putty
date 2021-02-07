@@ -31,17 +31,16 @@
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <None Include="plugin.json">
+    <None Include="icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   
   <ItemGroup>
-    <Content Include="icon.png">
-      <Link>icon.png</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

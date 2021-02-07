@@ -105,9 +105,9 @@
         {
             try
             {
-								string PuttyPath = "putty.exe";
-								if(!string.IsNullOrEmpty(_settings.PuttyPath))
-									PuttyPath = _settings.PuttyPath;
+				string PuttyPath = "putty.exe";
+				if(!string.IsNullOrEmpty(_settings.PuttyPath))
+					PuttyPath = _settings.PuttyPath;
                 var p = new Process { StartInfo = { FileName = PuttyPath } };
 
                 // Optionally pass the session identifier
