@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Windows.Controls;
 
 namespace Flow.Launcher.Plugin.Putty
@@ -12,27 +14,17 @@ namespace Flow.Launcher.Plugin.Putty
         /// <summary>
         /// A refernce to the current PluginInitContext
         /// </summary>
-        private PluginInitContext _context;
+        private PluginInitContext context;
 
-        private Settings _settings;
+        private Settings settings;
 
         /// <summary>
         /// A reference to the Putty PuttySessionService
         /// </summary>
         public IPuttySessionService PuttySessionService { get; set; }
 
-        /// <summary>
-        /// A reference to the SettingsService
-        /// </summary>
-        private SettingsService SettingsService { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
-        /// </summary>
         public PuttyPlugin()
         {
-            SettingsService = new SettingsService();
-            _settings = SettingsService.LoadSettings();
             PuttySessionService = new PuttySessionService();
         }
 
@@ -42,7 +34,35 @@ namespace Flow.Launcher.Plugin.Putty
         /// <param name="context"></param>
         public void Init(PluginInitContext context)
         {
-            _context = context;
+            this.context = context;
+
+            var settingsFolderLocation = 
+                Path.Combine(
+                    Directory.GetParent(
+                        Directory.GetParent(context.CurrentPluginMetadata.PluginDirectory).FullName)
+                    .FullName, 
+                    "Settings","Plugins","Flow.Launcher.Plugin.Putty");
+
+            var settingsFileLocation = Path.Combine(settingsFolderLocation, "Settings.json");
+
+            if (!Directory.Exists(settingsFolderLocation))
+            {
+                Directory.CreateDirectory(settingsFolderLocation);
+
+                settings = new Settings
+                {
+                    SettingsFileLocation = settingsFileLocation
+                };
+
+                settings.Save();
+            }
+            else
+            {
+                settings = JsonSerializer.Deserialize<Settings>(File.ReadAllText(settingsFileLocation));
+                settings.SettingsFileLocation = settingsFileLocation;
+            }
+
+            settings.OnSettingsChanged = (s) => settings.Save();
         }
 
         /// <summary>
@@ -54,7 +74,7 @@ namespace Flow.Launcher.Plugin.Putty
         public List<Result> Query(Query query)
         {
             var results = new List<Result> { };
-            if (_settings.AddPuttyExeToResults)
+            if (settings.AddPuttyExeToResults)
             {
                 results.Add(CreateResult());
             }
@@ -62,7 +82,7 @@ namespace Flow.Launcher.Plugin.Putty
 
             if (string.IsNullOrEmpty(querySearch))
             {
-                if (_settings.AddPuttyExeToResults)
+                if (settings.AddPuttyExeToResults)
                 {
                     return results;
                 } 
@@ -108,8 +128,8 @@ namespace Flow.Launcher.Plugin.Putty
             try
             {
 				string PuttyPath = "putty.exe";
-				if(!string.IsNullOrEmpty(_settings.PuttyPath))
-					PuttyPath = _settings.PuttyPath;
+				if(!string.IsNullOrEmpty(settings.PuttyPath))
+					PuttyPath = settings.PuttyPath;
                 var p = new Process { StartInfo = { FileName = PuttyPath } };
 
                 // Optionally pass the session identifier
@@ -118,7 +138,7 @@ namespace Flow.Launcher.Plugin.Putty
                     p.StartInfo.Arguments = "-load \"" + sessionIdentifier + "\"";
                 }
 
-                if (_settings.AlwaysStartsSessionMaximized)
+                if (settings.AlwaysStartsSessionMaximized)
                 {
                     p.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
                 }
@@ -130,7 +150,7 @@ namespace Flow.Launcher.Plugin.Putty
             catch (Exception ex)
             {
                 // Report the exception to the user. No further actions required
-                _context.API.ShowMsg("Putty Error: " + sessionIdentifier + " (" + _settings.PuttyPath + ") ", ex.Message, "");
+                context.API.ShowMsg("Putty Error: " + sessionIdentifier + " (" + settings.PuttyPath + ") ", ex.Message, "");
 
                 return false;
             }
@@ -138,7 +158,7 @@ namespace Flow.Launcher.Plugin.Putty
 
         public Control CreateSettingPanel()
         {
-            return new PuttySettings(_settings);
+            return new PuttySettings(settings);
         }
     }
 }

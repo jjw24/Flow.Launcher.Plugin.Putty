@@ -10,16 +10,17 @@ namespace Flow.Launcher.Plugin.Putty
 	/// </summary>
 	public partial class PuttySettings : UserControl
 	{
-		private Settings _settings;
+		private Settings settings;
 
 		public PuttySettings(Settings settings) {
 			InitializeComponent();
-			_settings = settings;
+			this.settings = settings;
 		}
 
 		private void UserControl_Loaded(object sender, RoutedEventArgs e) {
-			BindBooleanToCheckbox(AddPuttyExeInResults, () => _settings.AddPuttyExeToResults, (v) => _settings.AddPuttyExeToResults = v);
-			BindBooleanToCheckbox(AlwaysStartsSessionMaximized, () => _settings.AlwaysStartsSessionMaximized, (v) => _settings.AlwaysStartsSessionMaximized = v);
+			BindBooleanToCheckbox(AddPuttyExeInResults, () => settings.AddPuttyExeToResults, (v) => settings.AddPuttyExeToResults = v);
+			BindBooleanToCheckbox(AlwaysStartsSessionMaximized, () => settings.AlwaysStartsSessionMaximized, (v) => settings.AlwaysStartsSessionMaximized = v);
+			PuttyFilePath.Text = settings.PuttyPath;
 		}
 
 		private void BindBooleanToCheckbox(CheckBox checkBox, Func<bool> readBool, Action<bool> writeBool) {
@@ -27,26 +28,28 @@ namespace Flow.Launcher.Plugin.Putty
 
 			checkBox.Checked += (o, ev) => {
 				writeBool(true);
-				_settings.OnSettingsChanged?.Invoke(_settings);
+				settings.OnSettingsChanged?.Invoke(settings);
 			};
 
 			checkBox.Unchecked += (o, ev) => {
 				writeBool(false);
-				_settings.OnSettingsChanged?.Invoke(_settings);
+				settings.OnSettingsChanged?.Invoke(settings);
 			};
 		}
 
 		private void btnOpenFile_Click(object sender, RoutedEventArgs e) {
 			// Create OpenFileDialog
-			Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
+			OpenFileDialog openFileDlg = new OpenFileDialog();
 
 			// Launch OpenFileDialog by calling ShowDialog method
-			Nullable<bool> result = openFileDlg.ShowDialog();
+			var result = openFileDlg.ShowDialog();
 			// Get the selected file name and display in a TextBox.
 			// Load content of file in a TextBlock
-			if(result == true) {
+			if(result == true)
+			{
 				PuttyFilePath.Text = openFileDlg.FileName;
-				_settings.PuttyPath = openFileDlg.FileName;
+				settings.PuttyPath = openFileDlg.FileName;
+				settings.Save();
 			}
 		}
 	}
