@@ -1,11 +1,14 @@
-﻿using Flow.Launcher.Plugin;
+﻿using Droplex;
+using Flow.Launcher.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace Flow.Launcher.Plugin.Putty
 {
@@ -63,6 +66,54 @@ namespace Flow.Launcher.Plugin.Putty
             }
 
             settings.OnSettingsChanged = (s) => settings.Save();
+
+            if (string.IsNullOrEmpty(settings.PuttyPath))
+            {
+                if (MessageBox.Show("Flow did not find a Putty path in settings, " +
+                    "would you like to download Putty? " +
+                    Environment.NewLine + Environment.NewLine +
+                    "Click no if you already have Putty, " +
+                    "and you will be prompted to select the path to the executable",
+                    string.Empty, MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    // Solves single thread apartment (STA) mode requirement error when using OpenFileDialog
+                    Thread t = new Thread(() =>
+                    {
+                        var dlg = new OpenFileDialog
+                        {
+                            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)
+                        };
+
+                        var result = dlg.ShowDialog();
+                        if (result == DialogResult.OK && !string.IsNullOrEmpty(dlg.FileName))
+                            settings.PuttyPath = dlg.FileName;
+
+                    });
+
+                    // Run your code from a thread that joins the STA Thread
+                    t.SetApartmentState(ApartmentState.STA);
+                    t.Start();
+                    t.Join();
+                }
+                else
+                {
+                    SetupPutty();
+                }
+
+                settings.Save();
+            }
+        }
+
+        private void SetupPutty()
+        {
+            var filePath = Path.Combine(context.CurrentPluginMetadata.PluginDirectory, "putty.exe");
+            // Save to the plugin directory instead of the user data settings directory 
+            // because it's a portable version and so it can removed along with the plugin.
+            Downloader
+                .Get("https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe", filePath)
+                .Wait();
+
+            settings.PuttyPath = filePath;
         }
 
         /// <summary>
@@ -156,7 +207,7 @@ namespace Flow.Launcher.Plugin.Putty
             }
         }
 
-        public Control CreateSettingPanel()
+        public System.Windows.Controls.Control CreateSettingPanel()
         {
             return new PuttySettings(settings);
         }
