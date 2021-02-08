@@ -66,6 +66,7 @@ namespace Flow.Launcher.Plugin.Putty
             }
 
             settings.OnSettingsChanged = (s) => settings.Save();
+
             if (string.IsNullOrEmpty(settings.PuttyPath))
             {
                 if (MessageBox.Show("Flow did not find a Putty path in settings, " +
@@ -98,18 +99,21 @@ namespace Flow.Launcher.Plugin.Putty
                 {
                     SetupPutty();
                 }
+
+                settings.Save();
             }
         }
 
         private void SetupPutty()
         {
+            var filePath = Path.Combine(context.CurrentPluginMetadata.PluginDirectory, "putty.exe");
             // Save to the plugin directory instead of the user data settings directory 
             // because it's a portable version and so it can removed along with the plugin.
             Downloader
-                .Get("https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe", context.CurrentPluginMetadata.PluginDirectory)
+                .Get("https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe", filePath)
                 .Wait();
 
-            settings.PuttyPath = Path.Combine(context.CurrentPluginMetadata.PluginDirectory, "putty.exe");
+            settings.PuttyPath = filePath;
         }
 
         /// <summary>
