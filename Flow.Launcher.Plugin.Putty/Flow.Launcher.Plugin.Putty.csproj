@@ -32,7 +32,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Droplex" Version="1.0.4" />
+    <PackageReference Include="Droplex" Version="1.1.0" />
     <PackageReference Include="Flow.Launcher.Plugin" Version="1.4.0" />
   </ItemGroup>
 </Project>
