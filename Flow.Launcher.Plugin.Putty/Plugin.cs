@@ -124,26 +124,33 @@ namespace Flow.Launcher.Plugin.Putty
         /// <returns>The filtered Putty session list</returns>
         public List<Result> Query(Query query)
         {
-            var results = new List<Result> { };
+            var results = new List<Result>();
             if (settings.AddPuttyExeToResults)
-            {
                 results.Add(CreateResult());
-            }
+
             var querySearch = query.Search;
 
             if (string.IsNullOrEmpty(querySearch))
             {
-                if (settings.AddPuttyExeToResults)
-                {
-                    return results;
-                } 
-                else 
-                {
-                    querySearch = string.Empty;
-                }
+                var allPuttySessions =
+                    PuttySessionService
+                    .GetAll()
+                    .Select(x => CreateResult(x.Identifier, x.ToString()));
+
+                return results.Concat(allPuttySessions).ToList();
             }
 
-            var puttySessions = PuttySessionService.GetAll().Where(session => session.Identifier.ToLowerInvariant().Contains(querySearch.ToLowerInvariant()));
+            var puttySessions = 
+                PuttySessionService.GetAll()
+                .Where(session => session.Identifier.ToLowerInvariant().Contains(querySearch.ToLowerInvariant()));
+
+            if (!puttySessions.Any())
+            {
+                results.Add(CreateResult(querySearch, $"Start session: {querySearch}", 60));
+
+                return results;
+            }
+
             foreach (var puttySession in puttySessions)
             {
                 results.Add(CreateResult(puttySession.Identifier, puttySession.ToString()));
@@ -158,14 +165,15 @@ namespace Flow.Launcher.Plugin.Putty
         /// <param name="title"></param>
         /// <param name="subTitle"></param>
         /// <returns>A Result object containing the PuttySession identifier and its connection string</returns>
-        private Result CreateResult(string title = "putty.exe", string subTitle = "Launch Clean Putty")
+        private Result CreateResult(string title = "putty.exe", string subTitle = "Open Putty", int score = 50)
         {
             return new Result
             {
                 Title = title,
                 SubTitle = subTitle,
                 IcoPath = "icon.png",
-                Action = context => LaunchPuttySession(title),
+                Action = context => title != "putty.exe" ? LaunchPuttySession(title) : LaunchPuttySession(string.Empty),//load Putty instead,
+                Score = score
             };
         }
 
@@ -178,15 +186,17 @@ namespace Flow.Launcher.Plugin.Putty
         {
             try
             {
-				string PuttyPath = "putty.exe";
-				if(!string.IsNullOrEmpty(settings.PuttyPath))
-					PuttyPath = settings.PuttyPath;
-                var p = new Process { StartInfo = { FileName = PuttyPath } };
+                var puttyPath = settings.PuttyPath;
+
+                if (string.IsNullOrEmpty(settings.PuttyPath))
+                    puttyPath = "putty.exe";
+
+                var p = new Process { StartInfo = { FileName = puttyPath } };
 
                 // Optionally pass the session identifier
                 if (!string.IsNullOrEmpty(sessionIdentifier))
                 {
-                    p.StartInfo.Arguments = "-load \"" + sessionIdentifier + "\"";
+                    p.StartInfo.Arguments = "-ssh \"" + sessionIdentifier + "\"";
                 }
 
                 if (settings.AlwaysStartsSessionMaximized)
