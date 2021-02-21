@@ -25,8 +25,8 @@ jobs:
       - run: echo ${{steps.version.outputs.prop}} 
       - name: Build
         run: |
-          dotnet publish 'Flow.Launcher.Plugin.Putty/Flow.Launcher.Plugin.Putty.csproj' --framework netcoreapp3.1  -c Release -o "Flow.Launcher.Plugin.Putty"
-          7z a -tzip "Flow.Launcher.Plugin.Putty.zip" "Flow.Launcher.Plugin.Putty/*"
+          dotnet publish 'Flow.Launcher.Plugin.Putty/Flow.Launcher.Plugin.Putty.csproj' --framework netcoreapp3.1  -c Release -o "Putty"
+          7z a -tzip "Flow.Launcher.Plugin.Putty.zip" "Putty/*"
           rm -r "Flow.Launcher.Plugin.Putty"
       - name: Publish
         uses: softprops/action-gh-release@v1
