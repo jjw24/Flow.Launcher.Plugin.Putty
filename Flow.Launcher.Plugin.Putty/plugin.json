@@ -4,7 +4,7 @@
     "Name": "Putty",
     "Description": "Launch Putty Sessions",
     "Author":"Konstantin Zaitcev, Kai Eichinger (@cH40zLord)",
-    "Version":"2.1.1",
+    "Version":"2.1.2",
     "Language": "csharp",
     "Website": "https://github.com/jjw24/Flow.Launcher.Plugin.Putty",
     "ExecuteFileName": "Flow.Launcher.Plugin.Putty.dll",
