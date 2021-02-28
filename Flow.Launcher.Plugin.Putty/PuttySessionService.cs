@@ -1,4 +1,4 @@
-﻿namespace Flow.Launcher.Plugin.Putty
+namespace Flow.Launcher.Plugin.Putty
 {
     using Microsoft.Win32;
     using System;
@@ -33,7 +33,7 @@
                         {
                             results.Add(new PuttySession
                             {
-                                Identifier = subKey,
+                                Identifier = Uri.UnescapeDataString(subKey),
                                 Protocol = puttySessionSubKey.GetValue("Protocol").ToString(),
                                 Username = puttySessionSubKey.GetValue("UserName").ToString(),
                                 Hostname = puttySessionSubKey.GetValue("HostName").ToString(),
