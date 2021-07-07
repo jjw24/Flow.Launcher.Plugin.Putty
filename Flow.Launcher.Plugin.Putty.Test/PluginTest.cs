@@ -9,7 +9,7 @@ namespace Flow.Launcher.Plugin.Putty.Test
     public class PluginTest
     {
         private const string Keyword = "pt";
-        private readonly Result _defaultPuttyResultItem = new Result { Title = "putty.exe", IcoPath = "logo.png", SubTitle = "Launch Clean Putty" };
+        private readonly Result _defaultPuttyResultItem = new Result { Title = "Settings", IcoPath = "logo.png", SubTitle = "Launch Clean Putty" };
 
         [Test]
         public void Query_returns_only_Putty_as_result_with_empty_searchquery()
