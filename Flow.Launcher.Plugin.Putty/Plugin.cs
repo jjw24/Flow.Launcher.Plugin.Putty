@@ -163,7 +163,7 @@ namespace Flow.Launcher.Plugin.Putty
         /// </summary>
         /// <returns>A Result object containing the PuttySession identifier and its connection string</returns>
         private Result CreateResult(
-            string title = "putty.exe", string subTitle = "Open Putty", int score = 50, PuttySession puttySession = null)
+            string title = "Settings", string subTitle = "Open Putty configurations", int score = 50, PuttySession puttySession = null)
         {
             if (puttySession != null && string.IsNullOrEmpty(puttySession.Hostname))
                 return new Result
@@ -180,8 +180,8 @@ namespace Flow.Launcher.Plugin.Putty
                 Title = title,
                 SubTitle = subTitle,
                 IcoPath = "icon.png",
-                Action = context => title != "putty.exe" ? LaunchPuttySession(title, puttySession) : LaunchPuttySession(string.Empty),//load Putty instead,
-                Score = score
+                Action = context => title != "Settings" ? LaunchPuttySession(title, puttySession) : LaunchPuttySession(string.Empty),//load Putty instead,
+                Score = title != "Settings" ? score : 0
             };
         }
 
@@ -196,7 +196,7 @@ namespace Flow.Launcher.Plugin.Putty
                 var puttyPath = settings.PuttyPath;
 
                 if (string.IsNullOrEmpty(settings.PuttyPath))
-                    puttyPath = "putty.exe";
+                    puttyPath = "Settings";
 
                 var p = new Process { StartInfo = { FileName = puttyPath } };
 
