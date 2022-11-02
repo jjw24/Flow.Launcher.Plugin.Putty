@@ -200,13 +200,15 @@ namespace Flow.Launcher.Plugin.Putty
 
                 var p = new Process { StartInfo = { FileName = puttyPath } };
 
-                if (!string.IsNullOrEmpty(puttySession?.Hostname))
+                if (!string.IsNullOrEmpty(puttySession?.Identifier))
                 {
-                    p.StartInfo.Arguments = "-load \"" + puttySession.Identifier + "\"";
+                    p.StartInfo.ArgumentList.Add("-load");
+                    p.StartInfo.ArgumentList.Add(puttySession.Identifier);
                 }
                 else if (!string.IsNullOrEmpty(session))
                 {
-                    p.StartInfo.Arguments = "-ssh \"" + session + "\"";
+                    p.StartInfo.ArgumentList.Add("-ssh");
+                    p.StartInfo.ArgumentList.Add(session);
                 }
 
                 if (settings.AlwaysStartsSessionMaximized)
