@@ -31,13 +31,19 @@ namespace Flow.Launcher.Plugin.Putty
                         }
                         try
                         {
-                            results.Add(new PuttySession
+                            var session = new PuttySession
                             {
                                 Identifier = Uri.UnescapeDataString(subKey),
                                 Protocol = puttySessionSubKey.GetValue("Protocol").ToString(),
                                 Username = puttySessionSubKey.GetValue("UserName").ToString(),
                                 Hostname = puttySessionSubKey.GetValue("HostName").ToString(),
-                            });
+                            };
+                            if (session.Protocol == "serial")
+                            {
+                                session.Hostname = $"{puttySessionSubKey.GetValue("SerialLine")}?baud={puttySessionSubKey.GetValue("SerialSpeed")}";
+                                session.Username = string.Empty; // ensure ToString doesn't append username
+                            }
+                            results.Add(session);
                         }
                         catch (Exception)
                         {
